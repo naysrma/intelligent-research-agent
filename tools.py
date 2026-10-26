@@ -33,11 +33,20 @@ def calculator (expression: str) -> str:
 def get_search_tool():
     """Web search using DuckDuckGo"""
     try:
-        return DuckDuckGoSearchRun()
+       search = DuckDuckGoSearchRun()
+       search.run("test")
+       return search
     except Exception as e:
-        logger.error(f"Search tool error: {e}")
-        st.warning("Web search tool unavailable")
-        return None
+       logger.warning(f"Search tool error: {e}")
+       try:
+           from langchain_community.utilities import GoogleSearchAPIWrapper
+           wrapper= GoogleSearchAPIWrapper(backend= "lite")
+           return DuckDuckGoSearchRun(api_wrapper=wrapper)
+       except Exception as e2:
+              logger.error(f"Google search tool error: {e2}")
+              st.warning("Search tool unavailable")
+              return None
+           
 
 def get_wiki_tool():
     """Wikipedia search tool"""
