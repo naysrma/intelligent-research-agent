@@ -44,7 +44,7 @@ def get_search_tool():
            return DuckDuckGoSearchRun(api_wrapper=wrapper)
        except Exception as e2:
               logger.error(f"Google search tool error: {e2}")
-              st.warning("")
+            #   st.warning("")
               return None
            
 
